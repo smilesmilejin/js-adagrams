@@ -71,6 +71,37 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+  
+  // make input all uppercase
+  const upperInput = input.toUpperCase();
+
+  // create a ditionary - letter: count from lettersInHand
+  const lettersCount = {}
+  for (let letter of lettersInHand) {
+    if (!(letter in lettersCount)) {
+        lettersCount[letter] = 1
+    } else {
+        lettersCount[letter] += 1
+    }
+  }
+
+  console.log(lettersCount)
+  // if the letter in letters_count, check if the value in letters_count > 1, decrement letter_count
+  //  if the letter in letters_count, if the value in letters_count < 1, return False
+  // if the letter not in letters_count, return false
+  for (let i = 0; i < upperInput.length; i++) {
+      if (!(upperInput[i] in lettersCount)){
+          console.log('false')
+          return false;
+      } else if (lettersCount[upperInput[i]] < 1) {
+          console.log('false')
+          return false;
+      } else if (lettersCount[upperInput[i]] >= 1) {
+          lettersCount[upperInput[i]] -= 1;
+      }
+  }
+  return true
+
 };
 
 export const scoreWord = (word) => {
