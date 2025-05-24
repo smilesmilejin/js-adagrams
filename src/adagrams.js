@@ -85,16 +85,16 @@ export const usesAvailableLetters = (input, lettersInHand) => {
     }
   }
 
-  console.log(lettersCount)
+  // console.log(lettersCount)
   // if the letter in letters_count, check if the value in letters_count > 1, decrement letter_count
   //  if the letter in letters_count, if the value in letters_count < 1, return False
   // if the letter not in letters_count, return false
   for (let i = 0; i < upperInput.length; i++) {
       if (!(upperInput[i] in lettersCount)){
-          console.log('false')
+          // console.log('false')
           return false;
       } else if (lettersCount[upperInput[i]] < 1) {
-          console.log('false')
+          // console.log('false')
           return false;
       } else if (lettersCount[upperInput[i]] >= 1) {
           lettersCount[upperInput[i]] -= 1;
@@ -106,6 +106,34 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
+  if (!word) {
+   return 0; // Throws the exact error the test expects
+  }
+
+  const scoreCharts = {
+      A: 1, E: 1, I: 1, O: 1, U: 1,
+      L: 1, N: 1, R: 1, S: 1, T: 1,
+      D: 2, G: 2,
+      B: 3, C: 3, M: 3, P: 3,
+      F: 4, H: 4, V: 4, W: 4, Y: 4,
+      K: 5,
+      J: 8, X: 8,
+      Q: 10, Z: 10
+  };
+
+  let points = 0;
+  for (const letter of word.toUpperCase()) {
+      points += scoreCharts[letter];
+  };
+
+  console.log(points);
+
+  if (7 <= word.length && word.length <= 10) {
+      points += 8;
+  };
+
+  console.log(points);
+  return points;
 };
 
 export const highestScoreFrom = (words) => {
