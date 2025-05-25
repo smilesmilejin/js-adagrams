@@ -32,33 +32,14 @@ export const drawLetters = () => {
   let letterPool = [];
 
   for (const [letter, qty] of Object.entries(letterQuantities)) {
-
-    // console.log(`${letter} appears ${qty} times`);
-    // Array(4) creates an array with 4 empty slots.
-    // .fill('A') fills all of them with 'A' → ['A', 'A', 'A', 'A']
-    // ... (spread operator) unpacks the array so that .push() adds each element individually.
     letterPool.push(...Array(qty).fill(letter));
   };
 
-//   console.log(letterPool)
-
-  let letterHand = []; // 10 letters
-
-  // create a random number between 0 to letterPool length - 1 inclusive
-  // check if the value of letterPool[rand] in letter quantities, 
-  // if quantities > 1
-  // // add the letter to letterHand
-  //// decrement the value in letterQuantities
+  let letterHand = []; 
   const handSize = 10;
 
   while (letterHand.length < handSize) {
-    // Math.random() → generates a number
-    //  between 0 (inclusive) and 1 (exclusive).
-    // * letterPool.length → scales it to the size of the array.
-    // Math.floor() → rounds down to the nearest whole number, giving you an index from 0 to letterPool.length - 1.
-    // if letterPool.length is 5, this will give 0 - 4
     const randomNum = Math.floor(Math.random() * letterPool.length);
-    // console.log(randomNum)
 
     const randletter = letterPool[randomNum];
 
@@ -75,10 +56,8 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
-  // make input all uppercase
   const upperInput = input.toUpperCase();
 
-  // create a ditionary - letter: count from lettersInHand
   const lettersCount = {};
 
   for (let letter of lettersInHand) {
@@ -89,17 +68,9 @@ export const usesAvailableLetters = (input, lettersInHand) => {
     }
   };
 
-  // console.log(lettersCount)
-  // if the letter in letters_count, check if the value in letters_count > 1, decrement letter_count
-  //  if the letter in letters_count, if the value in letters_count < 1, return False
-  // if the letter not in letters_count, return false
   for (let i = 0; i < upperInput.length; i++) {
     if (!(upperInput[i] in lettersCount) || lettersCount[upperInput[i]] < 1){
-      // console.log('false')
       return false;
-    //   } else if (lettersCount[upperInput[i]] < 1) {
-    //       // console.log('false')
-    //       return false;
     } else if (lettersCount[upperInput[i]] >= 1) {
       lettersCount[upperInput[i]] -= 1;
     }
@@ -112,7 +83,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 export const scoreWord = (word) => {
   // Implement this method for wave 3
   if (!word) {
-    return 0; // Throws the exact error the test expects
+    return 0;
   };
 
   const scoreCharts = {
@@ -131,20 +102,16 @@ export const scoreWord = (word) => {
     points += scoreCharts[letter];
   };
 
-//   console.log(points);
-
   if (7 <= word.length && word.length <= 10) {
     points += 8;
   };
 
-  //   console.log(points);
   return points;
 };
 
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
-  // const words = ['abc', 'awzqpsdf', 'aeiou']
   let maxWord = '';
   let maxScore = -Infinity;
   let score = 0;
