@@ -29,13 +29,13 @@ export const drawLetters = () => {
     Z: 1
   };
 
-  let letterPool = [];
+  const letterPool = [];
 
   for (const [letter, qty] of Object.entries(letterQuantities)) {
     letterPool.push(...Array(qty).fill(letter));
   };
 
-  let letterHand = []; 
+  const letterHand = []; 
   const handSize = 10;
 
   while (letterHand.length < handSize) {
@@ -45,7 +45,6 @@ export const drawLetters = () => {
 
     if (letterQuantities[randletter] >= 1) {
       letterHand.push(randletter);
-      //   console.log(letterHand);
       letterQuantities[randletter] -= 1
     }
   };
@@ -60,13 +59,10 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
   const lettersCount = {};
 
-  for (let letter of lettersInHand) {
-    if (!(letter in lettersCount)) {
-      lettersCount[letter] = 1
-    } else {
-      lettersCount[letter] += 1
-    }
-  };
+  for (const letter of lettersInHand) {
+    lettersCount[letter] = (lettersCount[letter] || 0) + 1; // if the letter doesn’t exist in the lettersCount object yet), then use 0 instead."
+  }
+
 
   for (let i = 0; i < upperInput.length; i++) {
     if (!(upperInput[i] in lettersCount) || lettersCount[upperInput[i]] < 1){
@@ -125,15 +121,13 @@ export const highestScoreFrom = (words) => {
     if (score > maxScore) {
       maxWord = word;
       maxScore = score;
+    // Address the tiebreaker
+    // only replace the maxWord if the new word has less letters or new word is length 10.
     } else if (score === maxScore) {
-      if (maxWord.length === 10) {
-        continue;
-      } else if (maxWord.length !== 10 && word.length == 10){
-        maxWord= word;
-        maxScore = score;         
-      } else if (maxWord.length !== 10 && word.length != 10 && word.length < maxWord.length){
-        maxWord = word;
-        maxScore = score;         
+      if (maxWord.length !== 10) {
+        if (word.length == 10 || word.length < maxWord.length) {
+          maxWord = word;
+        }
       }
     }
   };
